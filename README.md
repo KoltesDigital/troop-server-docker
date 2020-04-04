@@ -16,7 +16,7 @@ Based on Alpine and Python 3.
 
 Given [you already have installed Docker on a machine](https://docs.docker.com/install/):
 
-    docker run -d [-e PASSWORD=<password>] --name troop -p 57890:57890 --restart=always troop
+    docker run -d [-e PASSWORD=<password>] --name troop -p 57890:57890 --restart=always koltes/troop-server
 
 ### Environment variables
 
@@ -39,8 +39,8 @@ The build process retrieves Troop from its repository. Therefore it should work 
 
     git clone https://github.com/KoltesDigital/troop-server-docker
     cd troop-server-docker
-    docker build [--build-arg COMMIT=<commit>] -t troop .
-    docker run -d [-e PASSWORD=<password>] --name troop -p 57890:57890 --restart=always troop
+    docker build [--build-arg COMMIT=<commit>] -t troop-server .
+    docker run -d [-e PASSWORD=<password>] --name troop -p 57890:57890 --restart=always troop-server
 
 ### Build arguments
 
