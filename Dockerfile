@@ -1,10 +1,9 @@
-FROM alpine as git
+# syntax=docker/dockerfile:1.3
+
+FROM alpine/git AS builder
 ARG COMMIT=OT
 ARG REPOSITORY=https://github.com/Qirky/Troop
-RUN apk add git
-WORKDIR /workspace
-RUN git clone $REPOSITORY && \
-	cd Troop && \
+RUN git clone $REPOSITORY . && \
 	git -c advice.detachedHead=false checkout $COMMIT && \
 	( \
 	COMMIT=$(git rev-parse --verify HEAD); \
@@ -18,7 +17,7 @@ RUN git clone $REPOSITORY && \
 
 FROM python:3-alpine
 WORKDIR /app
-COPY ./run.py .
-COPY --from=git /workspace/Troop/src ./src
+COPY ./run.py ./
+COPY --from=builder /git/src ./src/
 EXPOSE 57890
 ENTRYPOINT ["python", "run.py"]
