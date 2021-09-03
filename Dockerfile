@@ -19,5 +19,7 @@ FROM python:3-alpine
 WORKDIR /app
 COPY ./run.py ./
 COPY --from=builder /git/src ./src/
+RUN addgroup -S app && adduser -S app -G app
+USER app
 EXPOSE 57890
 ENTRYPOINT ["python", "run.py"]
